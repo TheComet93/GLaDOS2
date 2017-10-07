@@ -36,7 +36,7 @@ class Blog(glados.Module):
     async def blogadmin(self, message, command):
         if command == 'list':
             with codecs.open(self.memory['data file'], 'r', encoding='utf-8') as f:
-                submissions = f.read().splitlines():
+                submissions = f.read().splitlines()
 
             if len(submissions) == 0:
                 await self.client.send_message(message.channel, "No blog submissions to review.")
@@ -49,7 +49,7 @@ class Blog(glados.Module):
             if len(submissions) == 0:
                 await self.client.send_message(message.channel, "No blog submissions to review.")
             else:
-                with codecs.open(self.memory['data file'], 'w' encoding='utf-8') as f:
+                with codecs.open(self.memory['data file'], 'w', encoding='utf-8') as f:
                     f.writelines(submissions[1:])
                 await self.client.send_message(message.channel, submissions[0])
         else:
