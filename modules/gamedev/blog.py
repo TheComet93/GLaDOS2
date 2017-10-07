@@ -1,5 +1,6 @@
 import glados
-
+import codecs
+import os
 
 class Blog(glados.Module):
     def setup_memory(self):
