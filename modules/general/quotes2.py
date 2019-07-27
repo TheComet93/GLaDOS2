@@ -10,7 +10,8 @@ from glados import Module, Permissions
 class Quotes(Module):
     def __init__(self, server_instance, full_name):
         super(Quotes, self).__init__(server_instance, full_name)
-
+        
+        self.word_length = 7
         self.quotes_dir = os.path.join(self.local_data_dir, "quotes2")
         if not os.path.exists(self.quotes_dir):
             os.mkdir(self.quotes_dir)
@@ -81,9 +82,9 @@ class Quotes(Module):
         average_word_length = float(sum([len(quote) for quote in words])) / float(number_of_words)
 
         frequencies = collections.Counter(words)
-        common = "the be to of and a in that have I it for not on with he as you do at this but his by from they we say her she or an will my one all would there their what so up out if about who get which go me when make can like time no just him know take people into year your good some could them see other than then now look only come its over think also back after use two how our work first well way even new want because any these give day most us".split()
+        common = "is it's don't are the be to of and a in that have I it for not on with he as you do at this but his by from they we say her she or an will my one all would there their what so up out if about who get which go me when make can like time no just him know take people into year your good some could them see other than then now look only come its over think also back after use two how our work first well way even new want because any these give day most us".split()
         vocab = len(self.filter_to_english_words(set(words)))
-        most_common = ', '.join(['"{}" ({})'.format(w.replace('```', ''), i) for w, i in frequencies.most_common() if w not in common][:5])
+        most_common = ', '.join(['"{}" ({})'.format(w.replace('```', ''), i) for w, i in frequencies.most_common() if w not in common and len(w) >= self.word_length][:5])
         least_common = ', '.join(['"{}"'.format(w.replace('```', '')) for w, i in frequencies.most_common() if w.find('http') == -1][-5:])
 
         response = ('```\n{0} spoke {1} quotes\n'
